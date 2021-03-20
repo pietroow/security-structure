@@ -1,22 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
+import { SecondaryComponent } from './pages/secondary/secondary.component';
 
 @NgModule({
-  declarations: [LoginComponent, MainComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatSnackBarModule,
+  declarations: [
+    LoginComponent,
+    MainComponent,
+    SecondaryComponent,
   ],
+  imports: [CommonModule, MaterialModule, SharedModule, ReactiveFormsModule],
 })
 export class CoreModule {}

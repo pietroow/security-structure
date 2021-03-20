@@ -1,1 +1,33 @@
-<p>main works!</p>
+<div class="container-table" fxLayout="column">
+  <div fxFlex="20px"></div>
+  <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="20px">
+    <button mat-button></button>
+  </div>
+    <div class="table">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- name -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>NAME</th>
+          <td mat-cell *matCellDef="let row">{{ row?.name }}</td>
+        </ng-container>
+
+        <!-- hex -->
+        <ng-container matColumnDef="hex">
+          <th mat-header-cell *matHeaderCellDef>HEX</th>
+          <td mat-cell *matCellDef="let row"> {{ row?. hex }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; let i = index; columns: displayedColumns"
+          [ngClass]="i % 2 !== 0 ? 'stripped' : 'not-stripped'"
+        ></tr>
+      </table>
+    </div>
+    <app-table-counter [length]="dataSource.data.length"></app-table-counter>
+    <mat-paginator color="primary" showFirstLastButtons="true"></mat-paginator>
+  <div fxFlex="20px"></div>
+</div>
+
+<button mat-raised-button color="primary" (click)="goto()">GO TO SECONDARY PAGE</button>

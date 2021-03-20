@@ -1,4 +1,4 @@
-package com.home.security.domain.usuario;
+package com.home.security.domain.security.usuario;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

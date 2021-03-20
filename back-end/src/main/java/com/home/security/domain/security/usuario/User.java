@@ -1,6 +1,7 @@
-package com.home.security.domain.usuario;
+package com.home.security.domain.security.usuario;
 
-import com.home.security.domain.permission.Permission;
+import com.home.security.domain.security.authority.Authority;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Getter
 @Entity
 @Table(name = "tb_user", schema = "security")
 public class User implements UserDetails {
@@ -19,10 +21,10 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-    @ManyToMany()
-    @JoinTable(name = "tb_user_permission", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id"), schema = "security")
-    private Set<Permission> permissions = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "tb_user_authority", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"), schema = "security")
+    private final Set<Authority> authorities = new HashSet<>();
 
     public User() {
         this.id = UUID.randomUUID();
@@ -37,8 +39,8 @@ public class User implements UserDetails {
 
     @Override
     public Set<GrantedAuthority> getAuthorities() {
-        return permissions.stream()
-                .map(o -> new SimpleGrantedAuthority(o.getDescription().toUpperCase()))
+        return authorities.stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getCode().toUpperCase()))
                 .collect(Collectors.toSet());
     }
 
@@ -72,12 +74,27 @@ public class User implements UserDetails {
         return true;
     }
 
-    public UUID getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(authorities, user.authorities);
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
 }

@@ -5,15 +5,16 @@ CREATE TABLE tb_user (
 	password VARCHAR(80) NOT NULL
 );
 
-CREATE TABLE tb_permission (
+CREATE TABLE tb_authority (
 	id UUID PRIMARY KEY,
+	code VARCHAR(50),
 	description VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE tb_user_permission (
+CREATE TABLE tb_user_authority (
 	user_id UUID NOT NULL,
-	permission_id UUID NOT NULL,
-	PRIMARY KEY (user_id, permission_id),
+	authority_id UUID NOT NULL,
+	PRIMARY KEY (user_id, authority_id),
 	FOREIGN KEY (user_id) REFERENCES tb_user(id),
-	FOREIGN KEY (permission_id) REFERENCES tb_permission(id)
+	FOREIGN KEY (authority_id) REFERENCES tb_authority(id)
 );

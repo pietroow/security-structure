@@ -61,12 +61,7 @@ export class LoginComponent implements OnInit {
     return this.formGroupLogin.value;
   }
 
-  // logoutBehavior(): void {
-    // this.tokenService.clearAccessToken();
-    // this.router.navigate([LOGOUT_URL]);
-  // }
-
-  loginBehavior(accessToken: string, url?: string): void {
+  loginBehavior(accessToken: string): void {
     this.tokenService.saveToken(accessToken);
     this.router.navigate(['main']);
   }

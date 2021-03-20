@@ -1,0 +1,5 @@
+CREATE TABLE tb_color (
+	id uuid PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	hex VARCHAR(10) NOT NULL
+);

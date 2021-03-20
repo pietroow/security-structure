@@ -1,4 +1,4 @@
-package com.home.security.domain.usuario;
+package com.home.security.domain.security.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +16,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    public void createUser(UserFormDTO userFormDTO) {
+    public User createUser(UserFormDTO userFormDTO) {
         User user = new User(userFormDTO);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
